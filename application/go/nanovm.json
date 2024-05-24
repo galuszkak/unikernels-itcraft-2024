@@ -1,0 +1,8 @@
+{
+    "CloudConfig": {
+        "Platform": "gcp",
+        "ProjectID": "unikernels-craft-it-2024",
+        "Zone": "europe-central2-a",
+        "BucketName": "vm-unikernels-craft-it-2024"
+    }
+}
