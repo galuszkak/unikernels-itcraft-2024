@@ -19,11 +19,11 @@ func main() {
 	r := gin.New()
 
 	r.GET("/", func(c *gin.Context) {
-		randomString := generateRandomString(1024)
+		randomString := generateRandomString(1024 * 256)
 		sha512 := calculateSHA512(randomString)
 
 		response := Response{
-			RandomString: randomString,
+			RandomString: randomString[:4],
 			Sha512:       sha512,
 		}
 

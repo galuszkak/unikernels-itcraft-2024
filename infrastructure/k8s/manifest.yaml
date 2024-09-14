@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: internal-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: internal-app
+  template:
+    metadata:
+      labels:
+        app: internal-app
+    spec:
+      containers:
+        - name: app
+          image: europe-docker.pkg.dev/unikernels-craft-it-2024/bbdays4it-docker-repository/app@sha256:d7e7e7d618730691d17a7115e7c720ae1725df1b0689216791c0449a2d529bb5
+          ports:
+            - containerPort: 8080
+          resources:
+            requests:
+              cpu: "1000m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: internal-app
+  annotations:
+    cloud.google.com/load-balancer-type: "Internal"
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 80
+      targetPort: 8080
+      protocol: TCP
+  selector:
+    app: internal-app
